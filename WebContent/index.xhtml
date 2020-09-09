@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>SGU || Home</title>
+	<link href="css/style.css" rel="stylesheet" type="text/css" />
+</h:head>
+<h:body style="background:#13326B;">
+
+	<h:outputText value="SGU" styleClass="logo logo-index"></h:outputText>
+
+	<p:commandButton value="Sair" action="#{loginManagedBean.logout()}"
+		styleClass="btn btn-sair" />
+
+	<br />
+	<p:fieldset legend="Cadastro de Usuários" id="content"
+		styleClass="fieldset fieldset-cad">
+		<h:form>
+
+			<p:outputLabel value="Nome: " for="nome" />
+			<p:inputText value="#{usuarioManagedBean.user.nome}" id="nome"
+				styleClass="input" style="margin-left:0.6em;"/>
+			<br />
+
+			<p:outputLabel value="E-mail: " for="email"></p:outputLabel>
+			<p:inputText value="#{usuarioManagedBean.user.email}" id="email"
+				styleClass="input" />
+			<br />
+
+			<p:outputLabel value="Senha: " for="senha"></p:outputLabel>
+			<p:password value="#{usuarioManagedBean.user.senha}" id="senha"
+				styleClass="input" />
+			<br />
+
+			
+			<p:commandButton action="#{usuarioManagedBean.salvar()}"
+				value="Cadastrar" update="users content"
+				rendered="#{usuarioManagedBean.btnSave}" styleClass="btn" />
+			<p:commandButton action="#{usuarioManagedBean.confirmUpdate()}"
+				value="Atualizar" update="users content"
+				rendered="#{usuarioManagedBean.btnUpdate}" styleClass="btn" />
+
+			<br />
+
+		</h:form>
+		<p:outputLabel value="#{usuarioManagedBean.mensagem}" style="margin-top:1em;"/>
+
+
+	</p:fieldset>
+
+	<br></br>
+
+	<p:fieldset legend="Usuários" id="users" styleClass="fieldset">
+
+		<p:dataTable value="#{usuarioManagedBean.list}" var="user">
+
+			<p:column headerText="ID">
+				<p:outputLabel value="#{user.id}" />
+			</p:column>
+
+			<p:column headerText="NOME">
+				<p:outputLabel value="#{user.nome}" />
+			</p:column>
+
+			<p:column headerText="E-MAIL">
+				<p:outputLabel value="#{user.email}" />
+			</p:column>
+
+			<p:column headerText="" style="text-align:center;">
+				<p:commandButton value="Contato"
+					action="#{usuarioManagedBean.contato(user)}"
+					update="users content" styleClass="btn" />
+			</p:column>
+			
+			<p:column headerText="" style="text-align:center;">
+				<p:commandButton value="Excluir"
+					action="#{usuarioManagedBean.delete(user.id)}"
+					update="users content" styleClass="btn" />
+			</p:column>
+
+			<p:column headerText="" style="text-align:center;">
+				<p:commandButton value="Editar"
+					action="#{usuarioManagedBean.setUpdate(user.id)}"
+					update="users content" styleClass="btn" />
+			</p:column>
+			
+			
+
+		</p:dataTable>
+
+	</p:fieldset>
+
+</h:body>
+</html>

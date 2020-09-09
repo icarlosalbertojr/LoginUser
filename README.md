@@ -1,0 +1,2 @@
+# LoginUser
+CRUD para cadastrar usuários e seus telefones, com tela de login e filtro de acesso. O back-end aplicação foi construído com Java utilizando o Hibernate/JPA para a persistência de dados, front-end em JSF com a biblioteca do Primefaces, com banco de dados H2. Também foi utilizado o JUnit para executar os testes de alguns métodos.  Dados para teste da aplicação: Login: admin, Senha: admin.

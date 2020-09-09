@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>SGU || Contato</title>
+	<link href="css/style.css" rel="stylesheet" type="text/css" />
+</h:head>
+<h:body style="background:#13326B;">
+
+	<h:outputText value="SGU" styleClass="logo logo-index"></h:outputText>
+
+	<p:commandButton value="Home" action="index.html"
+		styleClass="btn btn-sair" />
+
+	<br />
+
+	<p:fieldset legend="Cadastro de contatos" id="content"
+		styleClass="fieldset fieldset-cad">
+		<h:form>
+
+			<p:outputLabel value="DDD:" for="ddd" />
+			<p:inputMask mask="99" value="#{telefoneManagedBean.telefone.ddd}"
+				id="ddd" styleClass="input" style="margin-left: 1.8em;" />
+			<br />
+			<p:outputLabel value="Número:" for="numero" />
+			<p:inputMask mask="9999-9999"
+				value="#{telefoneManagedBean.telefone.numero}" id="numero"
+				styleClass="input" />
+			<br />
+			<p:outputLabel for="tipo" value="Tipo:" style="margin-top:2em;" />
+			<p:selectOneMenu value="#{telefoneManagedBean.telefone.tipo}"
+				id="tipo" styleClass="input" style="margin-left: 2em;">
+				<f:selectItem itemLabel="Celular" itemValue="Celular" />
+				<f:selectItem itemLabel="Residencial" itemValue="Residencial" />
+			</p:selectOneMenu>
+			<br />
+			<p:commandButton action="#{telefoneManagedBean.salvar()}"
+				value="Cadastrar" update="fones content"
+				rendered="#{telefoneManagedBean.btnSave}" styleClass="btn" />
+			<p:commandButton action="#{telefoneManagedBean.confirmUpdate()}"
+				value="Atualizar" update="fones content"
+				rendered="#{telefoneManagedBean.btnUpdate}" styleClass="btn" />
+			<br />
+
+		</h:form>
+		<p:outputLabel value="#{telefoneManagedBean.mensagem}" />
+
+
+
+	</p:fieldset>
+
+	<br></br>
+
+	<p:fieldset legend="Contatos de #{telefoneManagedBean.user.nome}"
+		id="fones" styleClass="fieldset">
+
+		<p:dataTable value="#{telefoneManagedBean.list}" var="fone">
+
+			<p:column headerText="Número">
+				<p:outputLabel value="(#{fone.ddd}) " />
+				<p:outputLabel value="#{fone.numero}" />
+			</p:column>
+
+			<p:column headerText="Tipo">
+				<p:outputLabel value="#{fone.tipo}" />
+			</p:column>
+
+			<p:column headerText="" style="text-align:center;">
+				<p:commandButton value="Excluir"
+					action="#{telefoneManagedBean.delete(fone.id)}"
+					update="fones content" styleClass="btn" />
+				<p:commandButton value="Editar"
+					action="#{telefoneManagedBean.setUpdate(fone.id)}"
+					update="fones content" styleClass="btn" />
+			</p:column>
+
+		</p:dataTable>
+
+	</p:fieldset>
+
+</h:body>
+</html>
